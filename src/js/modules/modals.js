@@ -1,40 +1,60 @@
 const modals = () => {
   // ф-ція приймає кнопу відкритя мод.вікна, саме вікно, кнопку закриття
-  function bindModal(selectorBtn, modalWindow, close) {
-    // на кнопу вішаю подію
-    selectorBtn.addEventListener("click", (e) => {
-      // убираю перезагрузку при кліку на ссилку
-      if (e.taget) {
-        e.preventDefault();
-      }
+  function bindModal(selectorBtn, modalWindowSelector, closeSelector) {
+    const btn = document.querySelectorAll(selectorBtn);
+    const modal = document.querySelector(modalWindowSelector);
+    const close = document.querySelector(closeSelector);
 
-      // коли клікнули, вікно стає видимим
-      modalWindow.style.display = "block";
-      // поки не закриєш, сайт не гортатиметься
-      document.body.style.overflow = "hidden";
+    // на кнопки вішаю подію
+    btn.forEach((element) => {
+      element.addEventListener("click", (e) => {
+        // убираю перезагрузку при кліку на ссилку
+        if (e.taget) {
+          e.preventDefault();
+        }
+
+        // коли клікнули, вікно стає видимим
+        modal.style.display = "block";
+        // поки не закриєш, сайт не гортатиметься
+        // document.body.style.overflow = "hidden";
+        document.body.classList.add("modal-open");
+      });
 
       // при клікові на хрестик, закриваю вікно і далі гортаю
       close.addEventListener("click", () => {
-        modalWindow.style.display = "none";
+        modal.style.display = "none";
         // поки не закриєш, сайт не гортатиметься
-        document.body.style.overflow = "";
+        //   document.body.style.overflow = "";
+        document.body.classList.remove("modal-open");
       });
     });
+
     //  якщо клікаю не на вікно форми, то воно закривається
-    modalWindow.addEventListener("click", function (e) {
-      if (e.target === modalWindow) {
-        modalWindow.style.display = "none";
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        modal.style.display = "none";
         // поки не закриєш, сайт не гортатиметься
-        document.body.style.overflow = "";
+        // document.body.style.overflow = "";
+        document.body.classList.remove("modal-open");
       }
     });
   }
 
-  const callEngineerBtn = document.querySelector(".popup_engineer_btn");
-  const modalEngineer = document.querySelector(".popup_engineer");
-  const EngineerClose = document.querySelector(".popup_engineer .popup_close");
+  function showModalByTime(selector, time) {
+    setTimeout(() => {
+      document.querySelector(selector).style.display = "block";
+      document.body.style.overflow = "hidden";
+    }, time);
+  }
 
-  bindModal(callEngineerBtn, modalEngineer, EngineerClose);
+  bindModal(
+    ".popup_engineer_btn",
+    ".popup_engineer",
+    ".popup_engineer .popup_close"
+  );
+
+  bindModal(".phone_link", ".popup", ".popup .popup_close");
+  showModalByTime('.popup', 60000);
 };
 
 export default modals;
