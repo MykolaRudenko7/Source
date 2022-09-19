@@ -1,19 +1,20 @@
 const modals = () => {
   // ф-ція приймає кнопу відкритя мод.вікна, саме вікно, кнопку закриття
   function bindModal(selectorBtn, modalWindowSelector, closeSelector) {
-    const btn = document.querySelectorAll(selectorBtn);
+    // записую аргументи в константи
+    const btns = document.querySelectorAll(selectorBtn);
     const modal = document.querySelector(modalWindowSelector);
     const close = document.querySelector(closeSelector);
 
-    // на кнопки вішаю подію
-    btn.forEach((element) => {
-      element.addEventListener("click", (e) => {
-        // убираю перезагрузку при кліку на ссилку
+    // на кожну з кнопок вішаю подію
+    btns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        // убираю перезагрузку при якщо клік на ссилку
         if (e.taget) {
           e.preventDefault();
         }
 
-        // коли клікнули, вікно стає видимим
+        // при кліку, вікно стає видимим
         modal.style.display = "block";
         // поки не закриєш, сайт не гортатиметься
         // document.body.style.overflow = "hidden";
@@ -40,6 +41,8 @@ const modals = () => {
     });
   }
 
+  //   ф-ція показу модального вікна через деякий час
+  // приймає селектор і час, через який вона запускається
   function showModalByTime(selector, time) {
     setTimeout(() => {
       document.querySelector(selector).style.display = "block";
@@ -47,14 +50,18 @@ const modals = () => {
     }, time);
   }
 
+  // запускаю ф-цію мод.вікна
+  // для 1-ї кнопки
   bindModal(
     ".popup_engineer_btn",
     ".popup_engineer",
     ".popup_engineer .popup_close"
   );
-
+  // і 2ї
   bindModal(".phone_link", ".popup", ".popup .popup_close");
-  showModalByTime('.popup', 60000);
+
+  // ф-ція запуску мод.вікна через 60сек.
+  //   showModalByTime(".popup", 60000);
 };
 
 export default modals;
