@@ -1,4 +1,10 @@
-const tabs = (headerSel, tabSel, contentSel, activeClass) => {
+const tabs = (
+  headerSel,
+  tabSel,
+  contentSel,
+  activeClass,
+  display = "block"
+) => {
   const header = document.querySelector(headerSel);
   const tabs = document.querySelectorAll(tabSel);
   const content = document.querySelectorAll(contentSel);
@@ -20,7 +26,7 @@ const tabs = (headerSel, tabSel, contentSel, activeClass) => {
   // ф-ція для показу контенту конкретного табу (за- замовчуванням 1й)
   function showTabContent(i = 0) {
     // показую конкретний ел контенту
-    content[i].style.display = "block";
+    content[i].style.display = display;
     //  і таб
     tabs[i].classList.add(activeClass);
   }
