@@ -8,7 +8,6 @@ const tabs = (
   const header = document.querySelector(headerSel);
   const tabs = document.querySelectorAll(tabSel);
   const content = document.querySelectorAll(contentSel);
-  const active = document.querySelector(activeClass);
 
   // функція для ховання контенту табу (для кожного елементу)
   function hideTabContent() {

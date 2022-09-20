@@ -1,10 +1,10 @@
 const modals = () => {
-  // ф-ція приймає кнопу відкритя мод.вікна, саме вікно, кнопку закриття + стиль для дисплею
+  // ф-ція приймає кнопу відкритя мод.вікна, саме вікно, кнопку закриття і чи закриватиметься модальне вікно при клікові поза вікном
   function bindModal(
     selectorBtn,
     modalWindowSelector,
     closeSelector,
-    // якщо нічого не передаєм, то вікно заеривається при клікові на пусту область (за замовчуванням)
+    // якщо нічого не передаєм, то вікно закривається при клікові на пусту область (за замовчуванням)
     closeClickOwerlay = true
   ) {
     // записую аргументи в константи
@@ -21,7 +21,7 @@ const modals = () => {
           e.preventDefault();
         }
 
-        // закриваю всі модальнні вікна
+        // закриваю всі модальнні вікна (за атрибутами)
         windows.forEach((window) => {
           window.style.display = "none";
         });
@@ -31,21 +31,20 @@ const modals = () => {
         // поки не закриєш, сайт не гортатиметься
         document.body.style.overflow = "hidden";
       });
+    });
 
-      // при клікові на хрестик, закриваю вікно і далі гортаю
-      close.addEventListener("click", () => {
-        modal.style.display = "none";
-        // поки не закриєш, сайт не гортатиметься
-        document.body.style.overflow = "";
-      });
-
-      // і закриваю всі модальнні вікна
+    // при клікові на хрестик, закриваю вікно і далі гортаю
+    close.addEventListener("click", () => {
+      //закриваю всі модальнні вікна
       windows.forEach((window) => {
         window.style.display = "none";
       });
+      modal.style.display = "none";
+      // поки не закриєш, сайт не гортатиметься
+      document.body.style.overflow = "";
     });
 
-    //  якщо клікаю не на вікно форми і якщо 2й парамерт тру, то воно закривається прои кллікові на пусту ообласть то воно закривається
+    //  якщо клікаю не на вікно форми і якщо 2й парамерт тру, то воно закривається
     // тобто коли передаю false то закривається тільки по хресттику
     modal.addEventListener("click", function (e) {
       if (e.target === modal && closeClickOwerlay) {
@@ -53,10 +52,11 @@ const modals = () => {
         windows.forEach((window) => {
           window.style.display = "none";
         });
+
+        modal.style.display = "none";
+        // поки не закриєш, сайт не гортатиметься
+        document.body.style.overflow = "";
       }
-      modal.style.display = "none";
-      // поки не закриєш, сайт не гортатиметься
-      document.body.style.overflow = "";
     });
   }
 
@@ -70,7 +70,6 @@ const modals = () => {
   }
 
   // запускаю ф-цію мод.вікна
-  // для 1-ї кнопки
   bindModal(
     ".popup_engineer_btn",
     ".popup_engineer",
@@ -78,7 +77,6 @@ const modals = () => {
   );
   // і 2ї
   bindModal(".phone_link", ".popup", ".popup .popup_close");
-
   //  3 calc
   bindModal(".popup_calc_btn", ".popup_calc", ".popup_calc_close");
   // 4 тут не зариваю при клікові на пусту область вікно, для UX

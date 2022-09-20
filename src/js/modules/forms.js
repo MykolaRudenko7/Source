@@ -1,3 +1,5 @@
+import checkNumberInputs from "./checkNumberInputs";
+
 const forms = () => {
   // тут всі форми
   const allForms = document.querySelectorAll("form");
@@ -10,13 +12,8 @@ const forms = () => {
     failure: "Что-то не так",
   };
 
-  // всі інпути з вводом телефону не прийматимуть букви при вводі
-  const phoneInputs = document.querySelectorAll('input[name="user_phone"]');
-  phoneInputs.forEach((input) => {
-    input.addEventListener("input", () => {
-      input.value = input.value.replace(/\D/, "");
-    });
-  });
+  // всі інпути з вводом телефону не прийматимуть букви при вводі і будуть оброблятись 
+  checkNumberInputs('input[name="user_phone"]');
 
   // функція очищення інтутів
   const clearInputs = () => {
