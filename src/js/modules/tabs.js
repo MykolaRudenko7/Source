@@ -14,6 +14,7 @@ const tabs = (
     // кожен елемент  контенту ховаю
     content.forEach((element) => {
       element.style.display = "none";
+      element.classList.remove("faded");
     });
 
     // таби теж, відбираючи  у них активний клас
@@ -26,6 +27,8 @@ const tabs = (
   function showTabContent(i = 0) {
     // показую конкретний ел контенту
     content[i].style.display = display;
+    content[i].classList.add("faded");
+
     //  і таб
     tabs[i].classList.add(activeClass);
   }

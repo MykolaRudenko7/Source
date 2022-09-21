@@ -1,6 +1,5 @@
-
 const modals = () => {
-	// ф-ція приймає кнопу відкритя мод.вікна, саме вікно, кнопку закриття і чи закриватиметься модальне вікно при клікові поза вікном
+  // ф-ція приймає кнопу відкритя мод.вікна, саме вікно, кнопку закриття і чи закриватиметься модальне вікно при клікові поза вікном
   function bindModal(
     selectorBtn,
     modalWindowSelector,
@@ -13,12 +12,14 @@ const modals = () => {
     const modal = document.querySelector(modalWindowSelector);
     const close = document.querySelector(closeSelector);
     const windows = document.querySelectorAll("[data-modal]");
+    //  тут 19px, або інш ширина скролу браузеру
+    const scroll = calcScroll();
 
-	function closeModal(params) {
-	  params.forEach((param) => {
-		 param.style.display = "none";
-	  });
-	}
+    function closeModal(params) {
+      params.forEach((param) => {
+        param.style.display = "none";
+      });
+    }
 
     // на кожну з кнопок вішаю подію
     btns.forEach((btn) => {
@@ -35,6 +36,7 @@ const modals = () => {
         modal.style.display = "block";
         // поки не закриєш, сайт не гортатиметься
         document.body.style.overflow = "hidden";
+          document.body.style.marginRight = `${scroll}px`;
       });
     });
 
@@ -46,6 +48,7 @@ const modals = () => {
       modal.style.display = "none";
       // поки не закриєш, сайт не гортатиметься
       document.body.style.overflow = "";
+      document.body.style.marginRight = `0px`;
     });
 
     //  якщо клікаю не на вікно форми і якщо 2й парамерт тру, то воно закривається
@@ -58,6 +61,7 @@ const modals = () => {
         modal.style.display = "none";
         // поки не закриєш, сайт не гортатиметься
         document.body.style.overflow = "";
+          document.body.style.marginRight = `0px`;
       }
     });
   }
@@ -69,6 +73,22 @@ const modals = () => {
       document.querySelector(selector).style.display = "block";
       document.body.style.overflow = "hidden";
     }, time);
+  }
+
+  //
+  function calcScroll() {
+    let div = document.createElement("div");
+
+    div.style.width = "50px";
+    div.style.height = "50px";
+    div.style.overflowY = "scroll";
+    div.style.visibility = "hidden";
+
+    document.body.appendChild(div);
+    let scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+
+    return scrollWidth;
   }
 
   // запускаю ф-цію мод.вікна
