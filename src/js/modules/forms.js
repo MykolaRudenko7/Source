@@ -1,6 +1,6 @@
 import checkNumberInputs from "./checkNumberInputs";
 
-const forms = () => {
+const forms = (state) => {
   // тут всі форми
   const allForms = document.querySelectorAll("form");
   // тут всі інпути
@@ -12,7 +12,7 @@ const forms = () => {
     failure: "Что-то не так",
   };
 
-  // всі інпути з вводом телефону не прийматимуть букви при вводі і будуть оброблятись 
+  // всі інпути з вводом телефону не прийматимуть букви при вводі і будуть оброблятись
   checkNumberInputs('input[name="user_phone"]');
 
   // функція очищення інтутів
@@ -54,13 +54,20 @@ const forms = () => {
       // збираю данні у вигляді формату FormData
       const formData = new FormData(form);
 
+      // якщо форма має атрибут, що дорівнює енд, то
+      if (form.getAttribute("data-calc") === "end") {
+        // перебираю об'єкт і кожну пару додаю в формДату
+        for (let key in state) {
+          formData.append(key, state[key]);
+        }
+      }
+
       // юрл і данні які я хочу відправить  на сервер
       postData("assets/server.php", formData)
         // якщо все добре
         .then((result) => {
           // вивожу в консоль результат з серверу (текст)
           console.log(result);
-
           statusMessage.textContent = message.success;
         })
         // якщо помилка

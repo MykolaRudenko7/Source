@@ -9,8 +9,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // об'єкт з даними форми калькулятора і передаю у ф-цію
   let modalState = {};
-  changeModalState(modalState);
 
+  //   міняєм його тут
+  changeModalState(modalState);
+  // модальні вікна
   modals();
   //   таби 1
   tabs(".glazing_slider", ".glazing_block", ".glazing_content", "active");
@@ -29,7 +31,6 @@ window.addEventListener("DOMContentLoaded", () => {
     "do_image_more",
     "inline-block"
   );
-
   // форми
   forms(modalState);
 });

@@ -1,5 +1,6 @@
+
 const modals = () => {
-  // ф-ція приймає кнопу відкритя мод.вікна, саме вікно, кнопку закриття і чи закриватиметься модальне вікно при клікові поза вікном
+	// ф-ція приймає кнопу відкритя мод.вікна, саме вікно, кнопку закриття і чи закриватиметься модальне вікно при клікові поза вікном
   function bindModal(
     selectorBtn,
     modalWindowSelector,
@@ -13,6 +14,12 @@ const modals = () => {
     const close = document.querySelector(closeSelector);
     const windows = document.querySelectorAll("[data-modal]");
 
+	function closeModal(params) {
+	  params.forEach((param) => {
+		 param.style.display = "none";
+	  });
+	}
+
     // на кожну з кнопок вішаю подію
     btns.forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -22,9 +29,7 @@ const modals = () => {
         }
 
         // закриваю всі модальнні вікна (за атрибутами)
-        windows.forEach((window) => {
-          window.style.display = "none";
-        });
+        closeModal(windows);
 
         // при кліку, вікно стає видимим
         modal.style.display = "block";
@@ -36,9 +41,8 @@ const modals = () => {
     // при клікові на хрестик, закриваю вікно і далі гортаю
     close.addEventListener("click", () => {
       //закриваю всі модальнні вікна
-      windows.forEach((window) => {
-        window.style.display = "none";
-      });
+      closeModal(windows);
+
       modal.style.display = "none";
       // поки не закриєш, сайт не гортатиметься
       document.body.style.overflow = "";
@@ -49,9 +53,7 @@ const modals = () => {
     modal.addEventListener("click", function (e) {
       if (e.target === modal && closeClickOwerlay) {
         // і закриваю всі модальнні вікна (з дата атрибутом)
-        windows.forEach((window) => {
-          window.style.display = "none";
-        });
+        closeModal(windows);
 
         modal.style.display = "none";
         // поки не закриєш, сайт не гортатиметься
