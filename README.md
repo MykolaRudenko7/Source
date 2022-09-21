@@ -1,4 +1,4 @@
-# Source
+# site for Windows
  TERMINAL
  
 1. 'npm i' - for install
