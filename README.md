@@ -1,4 +1,6 @@
-# site for Windows
+# Windows company site
+
+
  TERMINAL
  
 1. 'npm i' - for install
